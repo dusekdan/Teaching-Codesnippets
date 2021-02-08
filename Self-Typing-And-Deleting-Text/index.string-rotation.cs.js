@@ -1,8 +1,8 @@
-// Mostly same as index.en.js - in places where code differs, an explanatory
-// comment is left.
+// Téměř stejné jako index.cs.js - v místech, kde se kód liší je vysvětlující
+// komentář.
 
-// Updated number of parameters passed the startTextAnimation function to
-//  include a list of strings to rotate between.
+// Tady je přidanej extra parametr pro startTextAnimation() - pole řetězců
+// které mají být vypisovány.
 window.addEventListener("load", () => {
     startTextAnimation(
         "Hey, welcome to my page!",
@@ -14,7 +14,7 @@ window.addEventListener("load", () => {
 });
 
 let letterPointer = 0;
-let keyStrokeSpeedRange = [50, 100];   // Upped the speed a little to be faster.
+let keyStrokeSpeedRange = [50, 100];   // Rychlejší psaní.
 let typeForward = true;
 let targetElement;
 let string;
@@ -22,6 +22,7 @@ let string;
 let stringsPointer = 0;
 let strings = []
 
+// Logicky - když předáváme více parametrů, musíme upravit i jejich seznam
 const startTextAnimation = (text, targetId, stringList) => {
     targetElement = document.getElementById(targetId);
     string = text;
@@ -46,12 +47,11 @@ const animateAndReschedule = () => {
         letterPointer -= 1;
 
         if (letterPointer == 0) {
-
-            // Update pointer into the list of strings to be +1 OR
-            // if it is the last string, then to be 0 - that is how that
-            // % operator works (modulo operator).
-            // When we reach the point where typing should start moving 
-            // forward, we change the string that is being typed out. 
+            // Když dojdeme do bodu, že se má začít psát text znovu dopředu
+            // tak změníme řetězec, který má být vypisován. Zároveň upravíme
+            // ukazatel do pole řetězců, aby byl o jedna větší (nebo pokud
+            // jsme dorazili k poslednímu řetězci, tak aby byl zptáky na nule
+            // - tak funguje % (modulo) operátor).
             stringsPointer = (stringsPointer+1) % strings.length;
             string = strings[stringsPointer];
             
